@@ -13,7 +13,7 @@ export default function Signin() {
       <main className={cx("section")}>
         <div className={cx("content")}>
           <section className={cx("title")}>
-            <Link href="index.html">
+            <Link href="/">
               <Image
                 width={210}
                 height={38}
@@ -25,7 +25,7 @@ export default function Signin() {
             </Link>
             <div className={cx("question")}>
               <div className={cx("question-text")}>회원이 아니신가요?</div>
-              <Link className={cx("signupLink")} href="signup.html">
+              <Link className={cx("signupLink")} href="/signup">
                 회원 가입하기
               </Link>
             </div>
