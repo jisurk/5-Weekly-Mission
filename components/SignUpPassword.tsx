@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { PasswordInput } from "./PasswordInput";
+import PasswordInput from "./PasswordInput";
+import { isPasswordValid } from "@/utils/util";
 
 interface SignUpPasswordProps {
   password: string;
@@ -9,12 +10,7 @@ interface SignUpPasswordProps {
   onConfirmPasswordChange: (value: string) => void;
 }
 
-export const isValidPassword = (password: string) => {
-  const passwordForm = /(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-  return passwordForm.test(password);
-};
-
-export function SignUpPassword({
+export default function SignUpPassword({
   password,
   confirmPassword,
   onPasswordChange,
@@ -24,7 +20,7 @@ export function SignUpPassword({
   const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
   const validatePassword = () => {
-    const validPassword = isValidPassword(password);
+    const validPassword = isPasswordValid(password);
     if (!validPassword) {
       setPasswordError("비밀번호는 영문,숫자 조합 8자 이상 입력해 주세요.");
     } else {

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import classNames from "classnames/bind";
-import styles from "@/styles/signin.module.scss";
+import styles from "@/styles/sign-in.module.scss";
 
 interface PasswordInputProps {
   value: string;
@@ -10,7 +10,7 @@ interface PasswordInputProps {
   id?: string;
 }
 
-export function PasswordInput({
+export default function PasswordInput({
   value,
   onChange,
   onBlur,
@@ -61,7 +61,7 @@ export function PasswordInput({
       />
       <div
         id="password-errorText"
-        className={cx("errortext", { error: !isError })}
+        className={cx("error-text", { error: !isError })}
       >
         {error || errorText}
       </div>

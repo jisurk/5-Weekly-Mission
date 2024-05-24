@@ -1,6 +1,6 @@
 import React from "react";
 import Image from "next/image";
-import styles from "@/styles/signin.module.scss";
+import styles from "@/styles/sign-in.module.scss";
 import classNames from "classnames/bind";
 import { SignIn } from "@/components/SignInForm";
 import Link from "next/link";
