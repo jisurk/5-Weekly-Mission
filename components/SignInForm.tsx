@@ -1,29 +1,33 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
-import { EmailInput } from "./EmailInput";
-import { PasswordInput } from "./PasswordInput";
-import styles from "@/styles/signin.module.scss";
 import classNames from "classnames/bind";
+
+import EmailInput from "./EmailInput";
+import PasswordInput from "./PasswordInput";
+import { BASE_URL } from "@/api/config";
+import styles from "@/styles/sign-in.module.scss";
 
 export function SignIn() {
   const cx = classNames.bind(styles);
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const router = useRouter();
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setEmailError("");
     setPasswordError("");
-    const data = { email, password };
+
+    const body = { email, password };
+
     try {
-      const response = await axios.post(
-        "https://bootcamp-api.codeit.kr/api/sign-in",
-        data
-      );
+      const response = await axios.post(`${BASE_URL}/api/sign-in`, body);
       if (response.status === 200) {
+        const { accessToken } = response.data;
+        localStorage.setItem("accessToken", accessToken);
         router.push("/folder");
       }
     } catch (error: any) {
@@ -35,6 +39,7 @@ export function SignIn() {
       }
     }
   };
+
   return (
     <form className={cx("input")} onSubmit={handleSubmit}>
       <EmailInput value={email} onChange={setEmail} error={emailError} />
@@ -43,7 +48,7 @@ export function SignIn() {
         onChange={setPassword}
         error={passwordError}
       />
-      <button type="submit" id="btn" className={cx("signin", "button")}>
+      <button type="submit" className={cx("sign-in__button", "button")}>
         로그인
       </button>
     </form>

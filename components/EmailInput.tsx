@@ -1,8 +1,8 @@
-// components/EmailInput.tsx
-
 import React, { useState, useEffect } from "react";
 import classNames from "classnames/bind";
-import styles from "@/styles/signin.module.scss";
+import styles from "@/styles/sign-in.module.scss";
+
+import { isEmailValid } from "@/utils/util";
 
 interface EmailInputProps {
   value: string;
@@ -10,13 +10,11 @@ interface EmailInputProps {
   error?: string;
 }
 
-export const emailCheck = (email: string) => {
-  const emailForm =
-    /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
-  return emailForm.test(email);
-};
-
-export function EmailInput({ value, onChange, error }: EmailInputProps) {
+export default function EmailInput({
+  value,
+  onChange,
+  error,
+}: EmailInputProps) {
   const cx = classNames.bind(styles);
   const [isFocused, setIsFocused] = useState(false);
   const [emailErrorText, setEmailErrorText] = useState("");
@@ -33,7 +31,7 @@ export function EmailInput({ value, onChange, error }: EmailInputProps) {
   const handleBlur = () => {
     setIsFocused(false);
     if (value) {
-      if (!emailCheck(value)) {
+      if (!isEmailValid(value)) {
         setEmailErrorText("올바른 이메일 주소가 아닙니다.");
       } else {
         setEmailErrorText("");
@@ -51,9 +49,7 @@ export function EmailInput({ value, onChange, error }: EmailInputProps) {
 
   return (
     <div className={cx("input__section")}>
-      <label className={cx("text")}>
-        이메일 <br />
-      </label>
+      <label className={cx("text")}>이메일</label>
       <input
         id="email"
         placeholder="이메일을 입력해 주세요."

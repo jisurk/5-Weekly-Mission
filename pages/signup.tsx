@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { SignUp } from "@/components/SignUpForm";
-import styles from "@/styles/signup.module.scss";
+import styles from "@/styles/sign-up.module.scss";
 import classNames from "classnames/bind";
 
 export default function SignUpPage() {
