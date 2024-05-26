@@ -1,1 +1,1 @@
-export const BASE_URL = "https://bootcamp-api.codeit.kr";
+export const BASE_URL = "https://bootcamp-api.codeit.kr/api";

@@ -1,7 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import classNames from "classnames/bind";
-import styles from "@/styles/Home.module.scss";
+import styles from "@/styles/index.module.scss";
+import Footer from "@/components/Footer";
 
 export default function Home() {
   const cx = classNames.bind(styles);
@@ -35,17 +36,17 @@ export default function Home() {
               관리해 보세요
             </span>
           </h1>
-          <div className={cx("signup")}>
-            <a className={cx("signup__link")} href="signup.html">
+          <div className={cx("sign-up")}>
+            <Link className={cx("sign-up__link")} href="/signup">
               링크 추가하기
-            </a>
+            </Link>
           </div>
           <div className={cx("main__img-section")}>
             <Image
               width={1118}
               height={658}
               className={cx("main__img")}
-              src="/img/main.png"
+              src="/img/main.svg"
               alt="main"
             />
           </div>
@@ -69,7 +70,7 @@ export default function Home() {
               width={326}
               height={266}
               className={cx("section-img")}
-              src="/img/save.png"
+              src="/img/save.svg"
               alt="save"
             />
           </div>
@@ -80,7 +81,7 @@ export default function Home() {
               width={326}
               height={266}
               className={cx("section-img")}
-              src="/img/manage.png"
+              src="/img/manage.svg"
               alt="manage"
             />
             <div className={cx("description-section")}>
@@ -117,7 +118,7 @@ export default function Home() {
               width={326}
               height={266}
               className={cx("section-img")}
-              src="/img/share.png"
+              src="/img/share.svg"
               alt="share"
             />
           </div>
@@ -128,7 +129,7 @@ export default function Home() {
               width={326}
               height={266}
               className={cx("section-img")}
-              src="/img/search.png"
+              src="/img/search.svg"
               alt="search"
             />
             <div className={cx("description-section")}>
@@ -144,49 +145,7 @@ export default function Home() {
           </div>
         </section>
       </main>
-      <footer className={cx("footer")}>
-        <div className={cx("footer__section")}>
-          <div className={cx("footer__year")}>©codeit - 2023</div>
-          <div className={cx("footer__link")}>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="faq.html">FAQ</a>
-          </div>
-          <div className={cx("footer__social")}>
-            <a href="https://www.facebook.com/">
-              <Image
-                width={20}
-                height={20}
-                src="/img/facebook.svg"
-                alt="Facebook"
-              />
-            </a>
-            <a href="https://twitter.com/">
-              <Image
-                width={20}
-                height={20}
-                src="/img/twitter.svg"
-                alt="Twitter"
-              />
-            </a>
-            <a href="https://youtube.com">
-              <Image
-                width={20}
-                height={20}
-                src="/img/youtube.svg"
-                alt="Youtube"
-              />
-            </a>
-            <a href="https://instagram.com">
-              <Image
-                width={20}
-                height={20}
-                src="/img/instagram.svg"
-                alt="Instagram"
-              />
-            </a>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }

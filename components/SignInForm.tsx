@@ -24,7 +24,7 @@ export function SignIn() {
     const body = { email, password };
 
     try {
-      const response = await axios.post(`${BASE_URL}/api/sign-in`, body);
+      const response = await axios.post(`${BASE_URL}/sign-in`, body);
       if (response.status === 200) {
         const { accessToken } = response.data;
         localStorage.setItem("accessToken", accessToken);

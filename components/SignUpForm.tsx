@@ -24,7 +24,7 @@ export function SignUp() {
     const passwordMatch = password === confirmPassword;
 
     if (validateEmail && validatePassword && passwordMatch) {
-      const checkEmailUrl = `${BASE_URL}/api/check-email`;
+      const checkEmailUrl = `${BASE_URL}/check-email`;
       const checkEmailData = { email };
 
       try {
@@ -34,7 +34,7 @@ export function SignUp() {
         );
         if (checkEmailResponse.status === 200) {
           setEmailError("");
-          const signUpUrl = `${BASE_URL}/api/sign-up`;
+          const signUpUrl = `${BASE_URL}/sign-up`;
           const signUpData = { email, password };
           try {
             const signUpResponse = await axios.post(signUpUrl, signUpData);

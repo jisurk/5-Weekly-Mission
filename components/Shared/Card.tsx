@@ -1,0 +1,112 @@
+import styled from "styled-components";
+import Link from "next/link";
+
+import { BASE_URL } from "@/api/config";
+import { useFetch } from "@/utils/useFetch";
+import { formatDate, generateTimeText } from "@/utils/util";
+
+const StyledCardContainer = styled.article`
+  display: grid;
+  grid-template-columns: repeat(3, 340px);
+  grid-template-rows: 334px;
+  column-gap: 20px;
+  row-gap: 25px;
+  margin: 0 auto;
+  @media (max-width: 1124px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`;
+
+const StyledCardSection = styled.section`
+  width: 340px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+`;
+
+const StyledCardImg = styled.img`
+  width: 340px;
+  height: 200px;
+  object-fit: cover;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  &:hover {
+    transform: scale(1.3);
+    transition: transform 0.3s ease;
+  }
+`;
+
+const StyledCardTextSection = styled.section`
+  width: 300px;
+  height: 136px;
+  padding: 15px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+const StyledCardCreatedAt = styled.div`
+  color: #666666;
+  font-size: 13px;
+  height: 17px;
+`;
+
+const StyledCardTextBody = styled.div`
+  font-size: 16px;
+  font-weight: 400;
+  overflow: hidden;
+  height: 49px;
+`;
+
+const StyledCardDate = styled.div`
+  font-size: 14px;
+`;
+
+interface CardData {
+  folder: {
+    links: {
+      id: number;
+      url: string;
+      imageSource: string;
+      title: string;
+      description: string;
+      createdAt: string;
+    }[];
+  };
+}
+
+function Card() {
+  const CardData = useFetch<CardData>(`${BASE_URL}/sample/folder`);
+
+  return (
+    <StyledCardContainer>
+      {CardData &&
+        CardData.folder.links.map((link) => (
+          <StyledCardSection key={link.id}>
+            <Link href={link.url} target="_blank">
+              <StyledCardImg
+                src={link.imageSource || "/img/thumbnail.svg"}
+                alt={link.imageSource ? link.title : "thumbnail-img"}
+              />
+            </Link>
+            <StyledCardTextSection>
+              <div>
+                <StyledCardCreatedAt>
+                  {generateTimeText(link.createdAt)}
+                </StyledCardCreatedAt>
+              </div>
+              <StyledCardTextBody>{link.description}</StyledCardTextBody>
+              <StyledCardDate>{formatDate(link.createdAt)}</StyledCardDate>
+            </StyledCardTextSection>
+          </StyledCardSection>
+        ))}
+    </StyledCardContainer>
+  );
+}
+
+export default Card;
