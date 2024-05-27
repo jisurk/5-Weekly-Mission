@@ -1,6 +1,5 @@
-// FolderCards.js
 import styled from "styled-components";
-import Card from "./Card";
+import Card, { LinkData } from "./Card";
 
 const StyledCardContainer = styled.article`
   display: grid;
@@ -19,7 +18,11 @@ const StyledCardContainer = styled.article`
   }
 `;
 
-function FolderCards({ linkData }) {
+interface CardListProps {
+  linkData: LinkData[];
+}
+
+function CardList({ linkData }: CardListProps) {
   return (
     <StyledCardContainer>
       {linkData.map((data) => (
@@ -29,4 +32,4 @@ function FolderCards({ linkData }) {
   );
 }
 
-export default FolderCards;
+export default CardList;

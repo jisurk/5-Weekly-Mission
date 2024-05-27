@@ -40,8 +40,8 @@ function Footer() {
       <FooterContent>
         <FooterYear>©codeit - 2023</FooterYear>
         <FooterLink>
-          <StyledLink href="privacy.html">Privacy Policy</StyledLink>
-          <StyledLink href="faq.html">FAQ</StyledLink>
+          <StyledLink href="/privacy">Privacy Policy</StyledLink>
+          <StyledLink href="/faq">FAQ</StyledLink>
         </FooterLink>
         <FooterSocial>
           <Link href="https://www.facebook.com/">

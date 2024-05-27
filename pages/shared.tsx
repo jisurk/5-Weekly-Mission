@@ -2,7 +2,7 @@ import Header from "@/components/Shared/SharedHeader";
 import Main from "@/components/Shared/Main";
 import Footer from "@/components/Footer";
 
-function Shared() {
+export default function SharedPage() {
   return (
     <>
       <Header />
@@ -11,5 +11,3 @@ function Shared() {
     </>
   );
 }
-
-export default Shared;

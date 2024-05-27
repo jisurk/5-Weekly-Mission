@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import FolderCards from "./Card";
+import Card, { LinkData } from "./Card";
+import { BASE_URL } from "@/api/config";
 
-const BASE = "https://bootcamp-api.codeit.kr/api/users/1";
+interface LinkListProps {
+  selectedFolderId: number | null;
+}
 
-function LinkList({ selectedFolderId }: number) {
-  const [linkData, setLinkData] = useState([]);
+function LinkList({ selectedFolderId }: LinkListProps) {
+  const [linkData, setLinkData] = useState<LinkData[]>([]);
 
   useEffect(() => {
     const fetchLinkData = async () => {
       try {
-        let url = `${BASE}/links`;
+        let url = `${BASE_URL}/users/1/links`;
         if (selectedFolderId !== null) {
           url += `?folderId=${selectedFolderId}`;
         }
@@ -27,7 +30,7 @@ function LinkList({ selectedFolderId }: number) {
   return (
     <div>
       {linkData.length > 0 ? (
-        <FolderCards linkData={linkData} />
+        linkData.map((data) => <Card key={data.id} linkData={data} />)
       ) : (
         <div>선택된 폴더에 저장된 링크가 없습니다.</div>
       )}

@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styled from "styled-components";
 
 const AddLinkBarContainer = styled.div`
@@ -30,10 +31,9 @@ const InputField = styled.input`
     color: #9fa6b2;
   }
 `;
-const LinkIcon = styled.img`
+const LinkIcon = styled(Image)`
   position: absolute;
-  height: 20px;
-  width: 20px;
+
   left: 5px;
   top: 50%;
   transform: translateY(-50%);
@@ -58,7 +58,12 @@ function AddLinkBar() {
     <AddLinkBarContainer>
       <AddLinkInputBox>
         <InputField type="search" placeholder="링크를 추가해 보세요." />
-        <LinkIcon src="/img/link-logo.svg" alt="링크모양 아이콘" />
+        <LinkIcon
+          width={20}
+          height={20}
+          src="/img/linkIcon.svg"
+          alt="링크모양 아이콘"
+        />
         <AddButton>추가하기</AddButton>
       </AddLinkInputBox>
     </AddLinkBarContainer>

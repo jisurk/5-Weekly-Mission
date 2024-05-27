@@ -2,6 +2,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import { useFetch } from "@/utils/useFetch";
 import { BASE_URL } from "@/api/config";
+import Image from "next/image";
 
 interface StyledNavBarProps {
   position?: string;
@@ -29,20 +30,13 @@ const StyledNavBar = styled.div<StyledNavBarProps>`
   }
 `;
 
-const StyledHeaderLogo = styled.img`
-  width: 132px;
-  height: 24px;
-`;
-
 const StyledUserProfile = styled.div`
   display: flex;
   gap: 6px;
   align-items: center;
 `;
 
-const StyledUserProfileImg = styled.img`
-  width: 28px;
-  height: 28px;
+const StyledUserProfileImg = styled(Image)`
   border-radius: 50%;
 `;
 
@@ -64,11 +58,18 @@ function HeaderNav({ position = "static" }: HeaderNavProps) {
     <>
       <StyledNavBar position={position}>
         <Link href="/">
-          <StyledHeaderLogo src="/img/logo.svg" alt="Linkbrary 로고" />
+          <Image
+            width={132}
+            height={24}
+            src="/img/logo.svg"
+            alt="Linkbrary 로고"
+          />
         </Link>
         {Userprofile ? (
           <StyledUserProfile>
             <StyledUserProfileImg
+              width={28}
+              height={28}
               src={Userprofile.profileImageSource}
               alt="유저 프로필사진"
             />

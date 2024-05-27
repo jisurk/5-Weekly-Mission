@@ -1,4 +1,3 @@
-// FolderMain.js
 import { useState } from "react";
 import styled from "styled-components";
 import SearchBar from "../SearchBar";
@@ -15,10 +14,10 @@ const MainContainer = styled.main`
   align-items: center;
 `;
 
-function FolderMain() {
-  const [selectedFolderId, setSelectedFolderId] = useState(null);
+function Main() {
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
 
-  const handleFolderClick = (folderId) => {
+  const handleFolderClick = (folderId: number | null) => {
     setSelectedFolderId(folderId);
   };
 
@@ -31,4 +30,4 @@ function FolderMain() {
   );
 }
 
-export default FolderMain;
+export default Main;

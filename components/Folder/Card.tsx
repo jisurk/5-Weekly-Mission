@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Link } from "react-router-dom";
 import { formatDate, generateTimeText } from "@/utils/util";
+import Link from "next/link";
 
 const StyledCard = styled.div`
   max-width: 340px;
@@ -47,7 +47,7 @@ const CardDescription = styled.p`
   text-overflow: ellipsis;
 `;
 
-interface LinkData {
+export interface LinkData {
   id: number;
   created_at: string;
   updated_at: string;
@@ -61,7 +61,7 @@ interface LinkData {
 function Card({ linkData }: { linkData: LinkData }) {
   return (
     <StyledCard>
-      <StyledLink to={linkData.url} target="_blank">
+      <StyledLink href={linkData.url} target="_blank">
         <CardImg
           src={linkData.image_source || "/img/thumbnail.svg"}
           alt={linkData.title}

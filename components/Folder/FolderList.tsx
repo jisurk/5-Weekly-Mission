@@ -16,7 +16,11 @@ const ActiveFolderName = styled.p`
   font-weight: 700;
 `;
 
-function FolderList({ onFolderClick }) {
+interface FolderListProps {
+  onFolderClick: (buttonId: number | null) => void;
+}
+
+function FolderList({ onFolderClick }: FolderListProps) {
   const [folderData, setFolderData] = useState([]);
 
   useEffect(() => {
@@ -35,7 +39,7 @@ function FolderList({ onFolderClick }) {
       {folderData.length > 0 ? (
         <>
           <Button folderData={folderData} onFolderClick={onFolderClick} />
-          <ActiveFolderName>{getActiveFolderName()}</ActiveFolderName>
+          <ActiveFolderName></ActiveFolderName>
         </>
       ) : (
         <div>저장된 링크가 없습니다.</div>
