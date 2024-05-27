@@ -2,6 +2,23 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Card, { LinkData } from "./Card";
 import { BASE_URL } from "@/api/config";
+import styled from "styled-components";
+
+const StyledCardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 20px;
+  row-gap: 25px;
+  margin: 0 auto;
+
+  @media (max-width: 1124px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 767px) {
+    grid-template-columns: repeat(1, 1fr);
+  }
+`;
 
 interface LinkListProps {
   selectedFolderId: number | null;
@@ -28,13 +45,13 @@ function LinkList({ selectedFolderId }: LinkListProps) {
   }, [selectedFolderId]);
 
   return (
-    <div>
+    <StyledCardContainer>
       {linkData.length > 0 ? (
         linkData.map((data) => <Card key={data.id} linkData={data} />)
       ) : (
         <div>선택된 폴더에 저장된 링크가 없습니다.</div>
       )}
-    </div>
+    </StyledCardContainer>
   );
 }
 

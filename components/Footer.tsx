@@ -45,16 +45,16 @@ function Footer() {
         </FooterLink>
         <FooterSocial>
           <Link href="https://www.facebook.com/">
-            <SocialIcon src="/img/facebook.svg" alt="Facebook" />
+            <SocialIcon src="/icon/facebook.svg" alt="Facebook" />
           </Link>
           <Link href="https://twitter.com/">
-            <SocialIcon src="/img/twitter.svg" alt="Twitter" />
+            <SocialIcon src="/icon/twitter.svg" alt="Twitter" />
           </Link>
           <Link href="https://youtube.com">
-            <SocialIcon src="/img/youtube.svg" alt="Youtube" />
+            <SocialIcon src="/icon/youtube.svg" alt="Youtube" />
           </Link>
           <Link href="https://instagram.com">
-            <SocialIcon src="/img/instagram.svg" alt="Instagram" />
+            <SocialIcon src="/icon/instagram.svg" alt="Instagram" />
           </Link>
         </FooterSocial>
       </FooterContent>

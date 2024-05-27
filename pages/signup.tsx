@@ -37,7 +37,7 @@ export default function SignUpPage() {
           <div className={cx("social-link")}>
             <Link href="https://www.google.com/">
               <Image
-                src="/img/google.svg"
+                src="/icon/google.svg"
                 alt="Google icon"
                 width={42}
                 height={42}
@@ -45,7 +45,7 @@ export default function SignUpPage() {
             </Link>
             <Link href="https://www.kakaocorp.com/page/">
               <Image
-                src="/img/kakao.svg"
+                src="/icon/kakao.svg"
                 alt="Kakao icon"
                 width={42}
                 height={42}

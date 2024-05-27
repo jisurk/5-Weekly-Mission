@@ -38,7 +38,6 @@ interface ButtonProps {
   folderData: FolderData[];
   onFolderClick: (buttonId: number | null) => void;
 }
-
 function Button({ folderData, onFolderClick }: ButtonProps) {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
@@ -48,24 +47,23 @@ function Button({ folderData, onFolderClick }: ButtonProps) {
   };
 
   return (
-    <div>
+    <>
       <StyledFolderButton
-        active={activeButton === null}
         onClick={() => handleButtonClick(null)}
+        active={activeButton === null}
       >
         전체
       </StyledFolderButton>
       {folderData.map((data) => (
         <StyledFolderButton
           key={data.id}
-          active={activeButton === data.id}
           onClick={() => handleButtonClick(data.id)}
+          active={activeButton === data.id}
         >
           {data.name}
         </StyledFolderButton>
       ))}
-    </div>
+    </>
   );
 }
-
 export default Button;

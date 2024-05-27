@@ -25,7 +25,7 @@ const SearchInput = styled.input`
 `;
 
 const SearchInputIcon = styled(SearchInput)`
-  background-image: url("/img/searchIcon.svg");
+  background-image: url("/icon/search.svg");
   background-position: 5px 50%;
   background-repeat: no-repeat;
   background-size: 16px;

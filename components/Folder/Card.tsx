@@ -31,13 +31,19 @@ const CardImg = styled.img`
 const CardTextSection = styled.section`
   width: 100%;
   height: 136px;
-  padding: 15px 20px;
+  padding: 10px 20px;
   display: grid;
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-columns: 1fr;
+  grid-template-areas:
+    "time"
+    "description"
+    "date";
 `;
 
 const CardDescription = styled.p`
+  margin: 0;
+
   width: 100%;
   height: 50px;
   display: -webkit-box;
@@ -45,8 +51,19 @@ const CardDescription = styled.p`
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  grid-area: description;
 `;
 
+const TimeText = styled.p`
+  margin: 0;
+  grid-area: time;
+`;
+
+const DateText = styled.p`
+  margin: 0;
+
+  grid-area: date;
+`;
 export interface LinkData {
   id: number;
   created_at: string;
@@ -68,9 +85,9 @@ function Card({ linkData }: { linkData: LinkData }) {
         />
       </StyledLink>
       <CardTextSection>
-        <p>{generateTimeText(linkData.created_at)}</p>
+        <TimeText>{generateTimeText(linkData.created_at)}</TimeText>
         <CardDescription>{linkData.description}</CardDescription>
-        <p>{formatDate(linkData.created_at)}</p>
+        <DateText>{formatDate(linkData.created_at)}</DateText>
       </CardTextSection>
     </StyledCard>
   );

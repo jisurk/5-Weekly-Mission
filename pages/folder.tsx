@@ -1,4 +1,4 @@
-import Header from "@/components/Folder/Header";
+import FolderHeader from "@/components/Folder/Header";
 import Main from "@/components/Folder/Main";
 import Footer from "@/components/Footer";
 import styled from "styled-components";
@@ -11,7 +11,7 @@ const StyledFolder = styled.div`
 export default function FolderPage() {
   return (
     <StyledFolder>
-      <Header />
+      <FolderHeader />
       <Main />
       <Footer />
     </StyledFolder>

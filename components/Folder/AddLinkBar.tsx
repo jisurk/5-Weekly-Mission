@@ -61,7 +61,7 @@ function AddLinkBar() {
         <LinkIcon
           width={20}
           height={20}
-          src="/img/linkIcon.svg"
+          src="/icon/link.svg"
           alt="링크모양 아이콘"
         />
         <AddButton>추가하기</AddButton>

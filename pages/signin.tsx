@@ -38,7 +38,7 @@ export default function SignInPage() {
                 <Image
                   width={42}
                   height={42}
-                  src="/img/google.svg"
+                  src="/icon/google.svg"
                   alt="Google icon"
                 />
               </Link>
@@ -46,7 +46,7 @@ export default function SignInPage() {
                 <Image
                   width={42}
                   height={42}
-                  src="/img/kakao.svg"
+                  src="/icon/kakao.svg"
                   alt="Kakao icon"
                 />
               </Link>
