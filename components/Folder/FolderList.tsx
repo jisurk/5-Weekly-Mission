@@ -5,8 +5,6 @@ import styled from "styled-components";
 import { BASE_URL } from "@/api/config";
 import Button from "./Button";
 
-const BASE = `${BASE_URL}/users/1`;
-
 const ActiveFolderName = styled.p`
   text-align: left;
   width: 100%;
@@ -17,20 +15,31 @@ const ActiveFolderName = styled.p`
 `;
 
 interface FolderListProps {
-  onFolderClick: (buttonId: number | null) => void;
+  selectedFolderId: number | null;
+  onFolderClick: (folderId: number | null) => void;
+}
+interface FolderData {
+  id: number;
+  created_at: string;
+  name: string;
+  user_id: number;
+  favorite: boolean;
+  link: {
+    count: number;
+  };
 }
 
-function FolderList({ onFolderClick }: FolderListProps) {
-  const [folderData, setFolderData] = useState([]);
+function FolderList({ selectedFolderId, onFolderClick }: FolderListProps) {
+  const [folderData, setFolderData] = useState<FolderData[]>([]);
 
   useEffect(() => {
     axios
-      .get(`${BASE}/folders`)
+      .get(`${BASE_URL}/folders`)
       .then((response) => {
         setFolderData(response.data.data);
       })
       .catch((error) => {
-        console.error("에러 메세지 : ", error);
+        console.error("folderList 에러 : ", error);
       });
   }, []);
 
@@ -38,11 +47,20 @@ function FolderList({ onFolderClick }: FolderListProps) {
     <div>
       {folderData.length > 0 ? (
         <>
-          <Button folderData={folderData} onFolderClick={onFolderClick} />
-          <ActiveFolderName></ActiveFolderName>
+          <Button
+            folderData={folderData}
+            selectedFolderId={selectedFolderId}
+            onFolderClick={onFolderClick}
+          />
+          <ActiveFolderName>
+            {selectedFolderId
+              ? folderData.find((folder) => folder.id === selectedFolderId)
+                  ?.name
+              : "전체"}
+          </ActiveFolderName>
         </>
       ) : (
-        <div>저장된 링크가 없습니다.</div>
+        <div>저장된 폴더가 없습니다.</div>
       )}
     </div>
   );

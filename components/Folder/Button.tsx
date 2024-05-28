@@ -36,9 +36,11 @@ const StyledFolderButton = styled.button<StyledFolderButtonProps>`
 
 interface ButtonProps {
   folderData: FolderData[];
+  selectedFolderId: number | null;
   onFolderClick: (buttonId: number | null) => void;
 }
-function Button({ folderData, onFolderClick }: ButtonProps) {
+
+function Button({ folderData, selectedFolderId, onFolderClick }: ButtonProps) {
   const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const handleButtonClick = (buttonId: number | null) => {

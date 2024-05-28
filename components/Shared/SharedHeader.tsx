@@ -9,11 +9,15 @@ const StyledHeaderContainer = styled.div`
   position: relative;
 `;
 
-function Header() {
+interface HeaderProps {
+  folderId: string;
+}
+
+function Header({ folderId }: HeaderProps) {
   return (
     <StyledHeaderContainer>
       <Nav position="absolute" />
-      <Content />
+      <Content folderId={folderId} />
     </StyledHeaderContainer>
   );
 }

@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import SearchBar from "../SearchBar";
 import FolderList from "./FolderList";
@@ -14,17 +15,26 @@ const MainContainer = styled.main`
   align-items: center;
 `;
 
-function Main() {
-  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
+interface MainProps {
+  folderId: string;
+}
 
-  const handleFolderClick = (folderId: number | null) => {
-    setSelectedFolderId(folderId);
-  };
+function Main({ folderId }: MainProps) {
+  const [selectedFolderId, setSelectedFolderId] = useState<number | null>(
+    folderId ? parseInt(folderId, 10) : null
+  );
+
+  useEffect(() => {
+    setSelectedFolderId(folderId ? parseInt(folderId, 10) : null);
+  }, [folderId]);
 
   return (
     <MainContainer>
       <SearchBar />
-      <FolderList onFolderClick={handleFolderClick} />
+      <FolderList
+        selectedFolderId={selectedFolderId}
+        onFolderClick={setSelectedFolderId}
+      />
       <LinkList selectedFolderId={selectedFolderId} />
     </MainContainer>
   );

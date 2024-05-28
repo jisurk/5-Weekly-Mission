@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { useFetch } from "@/utils/useFetch";
 import { BASE_URL } from "@/api/config";
 import Image from "next/image";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 interface StyledNavBarProps {
   position?: string;
@@ -43,8 +45,10 @@ const StyledUserProfileImg = styled(Image)`
 const url = `${BASE_URL}/sample`;
 
 interface UserProfile {
-  profileImageSource: string;
+  id: number;
+  name: string;
   email: string;
+  profileImageUrl: string;
 }
 
 interface HeaderNavProps {
@@ -52,7 +56,26 @@ interface HeaderNavProps {
 }
 
 function HeaderNav({ position = "static" }: HeaderNavProps) {
-  const Userprofile = useFetch<UserProfile>(`${url}/user`);
+  const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        try {
+          const response = await axios.get(`${BASE_URL}/users`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          setUserProfile(response.data.data);
+        } catch (error) {
+          console.error("유저 정보 에러 :", error);
+        }
+      }
+    };
+  }, []);
 
   return (
     <>
@@ -65,15 +88,15 @@ function HeaderNav({ position = "static" }: HeaderNavProps) {
             alt="Linkbrary 로고"
           />
         </Link>
-        {Userprofile ? (
+        {userProfile ? (
           <StyledUserProfile>
             <StyledUserProfileImg
               width={28}
               height={28}
-              src={Userprofile.profileImageSource}
+              src={userProfile.profileImageUrl}
               alt="유저 프로필사진"
             />
-            <p>{Userprofile.email}</p>
+            <p>{userProfile.email}</p>
           </StyledUserProfile>
         ) : (
           <button>로그인</button>

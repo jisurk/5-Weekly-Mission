@@ -4,6 +4,8 @@ import Link from "next/link";
 import { BASE_URL } from "@/api/config";
 import { useFetch } from "@/utils/useFetch";
 import { formatDate, generateTimeText } from "@/utils/util";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const StyledCardContainer = styled.article`
   display: grid;
@@ -67,44 +69,58 @@ const StyledCardDate = styled.div`
   font-size: 14px;
 `;
 
-interface CardData {
-  folder: {
-    links: {
-      id: number;
-      url: string;
-      imageSource: string;
-      title: string;
-      description: string;
-      createdAt: string;
-    }[];
-  };
+interface LinkData {
+  id: number;
+  url: string;
+  imageSource: string;
+  title: string;
+  description: string;
+  createdAt: string;
+}
+interface CardProps {
+  folderId: string;
+  userId: number;
 }
 
-function Card() {
-  const CardData = useFetch<CardData>(`${BASE_URL}/sample/folder`);
+function Card({ folderId, userId }: CardProps) {
+  const [linkData, setLinkData] = useState<LinkData[]>([]);
+
+  useEffect(() => {
+    const fetchLinkData = async () => {
+      try {
+        const response = await axios.get(
+          `${BASE_URL}/users/${userId}/links?folderId=${folderId}`
+        );
+        setLinkData(response.data.data);
+      } catch (error) {
+        console.error("링크 데이터 가져오기 에러:", error);
+      }
+    };
+
+    fetchLinkData();
+  }, [folderId, userId]);
 
   return (
     <StyledCardContainer>
-      {CardData &&
-        CardData.folder.links.map((link) => (
-          <StyledCardSection key={link.id}>
-            <Link href={link.url} target="_blank">
-              <StyledCardImg
-                src={link.imageSource || "/img/thumbnail.svg"}
-                alt={link.imageSource ? link.title : "thumbnail-img"}
-              />
-            </Link>
-            <StyledCardTextSection>
-              <div>
-                <StyledCardCreatedAt>
-                  {generateTimeText(link.createdAt)}
-                </StyledCardCreatedAt>
-              </div>
-              <StyledCardTextBody>{link.description}</StyledCardTextBody>
-              <StyledCardDate>{formatDate(link.createdAt)}</StyledCardDate>
-            </StyledCardTextSection>
-          </StyledCardSection>
-        ))}
+      {linkData.map((link) => (
+        <StyledCardSection key={link.id}>
+          <Link href={link.url} target="_blank">
+            <StyledCardImg
+              src={link.imageSource ? link.imageSource : "/img/thumbnail.svg"}
+              alt={link.imageSource ? link.title : "thumbnail-img"}
+            />
+          </Link>
+          <StyledCardTextSection>
+            <div>
+              <StyledCardCreatedAt>
+                {generateTimeText(link.createdAt)}
+              </StyledCardCreatedAt>
+            </div>
+            <StyledCardTextBody>{link.description}</StyledCardTextBody>
+            <StyledCardDate>{formatDate(link.createdAt)}</StyledCardDate>
+          </StyledCardTextSection>
+        </StyledCardSection>
+      ))}
     </StyledCardContainer>
   );
 }

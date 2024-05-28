@@ -12,13 +12,16 @@ const MainContainer = styled.main`
   align-items: center;
   justify-content: center;
 `;
+interface MainProps {
+  folderId: string;
+}
 
-function Main() {
+function Main({ folderId }: MainProps) {
   return (
     <>
       <MainContainer>
         <SearchBar />
-        <Card />
+        <Card folderId={folderId} userId={1} />
       </MainContainer>
     </>
   );

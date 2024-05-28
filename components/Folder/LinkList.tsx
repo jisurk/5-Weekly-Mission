@@ -49,7 +49,7 @@ function LinkList({ selectedFolderId }: LinkListProps) {
       {linkData.length > 0 ? (
         linkData.map((data) => <Card key={data.id} linkData={data} />)
       ) : (
-        <div>선택된 폴더에 저장된 링크가 없습니다.</div>
+        <div>저장된 링크가 없습니다.</div>
       )}
     </StyledCardContainer>
   );

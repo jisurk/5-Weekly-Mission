@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { useFetch } from "@/utils/useFetch";
 import { BASE_URL } from "@/api/config";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 const StyledFolderInfoContent = styled.div`
   width: 100%;
@@ -43,35 +45,62 @@ const StyledFolderName = styled.p`
   text-align: center;
 `;
 
+interface FolderData {
+  id: number;
+  name: string;
+  user_id: number;
+}
+
 interface FolderOwner {
   id: number;
   name: string;
   profileImageSource: string;
 }
 
-interface FolderData {
-  folder: {
-    id: number;
-    name: string;
-    owner: FolderOwner;
-  };
+interface HeaderContentProps {
+  folderId: string;
 }
 
-function HeaderContent() {
-  const folderData = useFetch<FolderData>(`${BASE_URL}/sample/folder`);
+function HeaderContent({ folderId }: HeaderContentProps) {
+  const [folderData, setFolderData] = useState<FolderData | null>(null);
+  const [folderOwner, setFolderOwner] = useState<FolderOwner | null>(null);
+
+  useEffect(() => {
+    const fetchFolderData = async () => {
+      try {
+        const response = await axios.get(`${BASE_URL}/folders/${folderId}`);
+        setFolderData(response.data.data);
+      } catch (error) {
+        console.error("폴더 정보 가져오기 에러:", error);
+      }
+    };
+
+    const fetchFolderOwner = async () => {
+      if (folderData) {
+        try {
+          const response = await axios.get(
+            `${BASE_URL}/users/${folderData.user_id}`
+          );
+          setFolderOwner(response.data.data);
+        } catch (error) {
+          console.error("폴더 소유자 정보 가져오기 에러:", error);
+        }
+      }
+    };
+
+    fetchFolderData();
+    if (folderData) {
+      fetchFolderOwner();
+    }
+  }, [folderId, folderData]);
 
   return (
     <StyledFolderInfoContent>
-      {folderData && (
+      {folderData && folderOwner && (
         <StyledFolderInfo>
-          <StyledFolderImg
-            src={folderData.folder.owner.profileImageSource}
-            alt="프로필"
-          />
-          <StyledFolderOwnerName>
-            @{folderData.folder.owner.name}
-          </StyledFolderOwnerName>
-          <StyledFolderName>{folderData.folder.name}</StyledFolderName>
+          <StyledFolderImg src={folderOwner.profileImageSource} alt="프로필" />
+          <StyledFolderOwnerName>@{folderOwner.name}</StyledFolderOwnerName>
+          <StyledFolderName>{folderData.name}</StyledFolderName>
         </StyledFolderInfo>
       )}
     </StyledFolderInfoContent>
