@@ -1,6 +1,5 @@
 import Link from "next/link";
 import styled from "styled-components";
-import { useFetch } from "@/utils/useFetch";
 import { BASE_URL } from "@/api/config";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -38,17 +37,17 @@ const StyledUserProfile = styled.div`
   align-items: center;
 `;
 
-const StyledUserProfileImg = styled(Image)`
+const StyledUserProfileImg = styled.img`
   border-radius: 50%;
+  width: 28px;
+  height: 28px;
 `;
-
-const url = `${BASE_URL}/sample`;
 
 interface UserProfile {
   id: number;
   name: string;
   email: string;
-  profileImageUrl: string;
+  image_source: string;
 }
 
 interface HeaderNavProps {
@@ -69,12 +68,13 @@ function HeaderNav({ position = "static" }: HeaderNavProps) {
               Authorization: `Bearer ${accessToken}`,
             },
           });
-          setUserProfile(response.data.data);
+          setUserProfile(response.data.data[0]);
         } catch (error) {
           console.error("유저 정보 에러 :", error);
         }
       }
     };
+    fetchUserProfile();
   }, []);
 
   return (
@@ -93,7 +93,7 @@ function HeaderNav({ position = "static" }: HeaderNavProps) {
             <StyledUserProfileImg
               width={28}
               height={28}
-              src={userProfile.profileImageUrl}
+              src={userProfile.image_source}
               alt="유저 프로필사진"
             />
             <p>{userProfile.email}</p>

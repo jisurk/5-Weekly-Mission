@@ -20,24 +20,38 @@ const StyledCardContainer = styled.div`
   }
 `;
 
-interface LinkListProps {
+interface CardListProps {
   selectedFolderId: number | null;
 }
 
-function LinkList({ selectedFolderId }: LinkListProps) {
+function CardList({ selectedFolderId }: CardListProps) {
   const [linkData, setLinkData] = useState<LinkData[]>([]);
 
   useEffect(() => {
     const fetchLinkData = async () => {
-      try {
-        let url = `${BASE_URL}/users/1/links`;
-        if (selectedFolderId !== null) {
-          url += `?folderId=${selectedFolderId}`;
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        try {
+          let url = `${BASE_URL}/links`;
+          if (selectedFolderId !== null) {
+            url += `?folderId=${selectedFolderId}`;
+            console.log("Id :", selectedFolderId);
+          }
+          const response = await axios.get(url, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          if (selectedFolderId === null) {
+            setLinkData(response.data.data.folder);
+          } else {
+            setLinkData(response.data.data);
+          }
+          console.log("response : ", response.data.data);
+        } catch (error) {
+          console.error("에러 메세지 : ", error);
         }
-        const response = await axios.get(url);
-        setLinkData(response.data.data);
-      } catch (error) {
-        console.error("에러 메세지 : ", error);
       }
     };
 
@@ -55,4 +69,4 @@ function LinkList({ selectedFolderId }: LinkListProps) {
   );
 }
 
-export default LinkList;
+export default CardList;

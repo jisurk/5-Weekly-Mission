@@ -1,8 +1,8 @@
-import FolderHeader from "@/components/Folder/FolderHeader";
-import Main from "@/components/Folder/Main";
-import Footer from "@/components/Footer";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import Header from "@/components/Folder/Header";
+import Main from "@/components/Folder/Main";
+import Footer from "@/components/Footer";
 import styled from "styled-components";
 
 const StyledFolder = styled.div`
@@ -10,6 +10,7 @@ const StyledFolder = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 export default function FolderPage() {
   const router = useRouter();
   const { folderId } = router.query;
@@ -23,8 +24,8 @@ export default function FolderPage() {
 
   return (
     <StyledFolder>
-      <FolderHeader />
-      <Main folderId={folderId as string} />
+      <Header />
+      <Main folderId={Array.isArray(folderId) ? folderId[0] : folderId} />
       <Footer />
     </StyledFolder>
   );

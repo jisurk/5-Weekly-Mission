@@ -33,14 +33,24 @@ function FolderList({ selectedFolderId, onFolderClick }: FolderListProps) {
   const [folderData, setFolderData] = useState<FolderData[]>([]);
 
   useEffect(() => {
-    axios
-      .get(`${BASE_URL}/folders`)
-      .then((response) => {
-        setFolderData(response.data.data);
-      })
-      .catch((error) => {
-        console.error("folderList 에러 : ", error);
-      });
+    const fetchFolderData = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      if (accessToken) {
+        try {
+          const response = await axios.get(`${BASE_URL}/folders`, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
+          setFolderData(response.data.data.folder);
+        } catch (error) {
+          console.error("folderList 에러 : ", error);
+        }
+      }
+    };
+
+    fetchFolderData();
   }, []);
 
   return (

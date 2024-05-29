@@ -25,15 +25,10 @@ export function SignIn() {
 
     try {
       const response = await axios.post(`${BASE_URL}/sign-in`, body);
-
       if (response.status === 200) {
         const { accessToken } = response.data.data;
-        console.log(response.data);
         localStorage.setItem("accessToken", accessToken);
         console.log("토큰 :", accessToken);
-        if (!accessToken) {
-          console.log("토큰 없음.");
-        }
         router.push("/folder");
       }
     } catch (error: any) {

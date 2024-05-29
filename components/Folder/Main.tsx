@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
 import styled from "styled-components";
 import SearchBar from "../SearchBar";
 import FolderList from "./FolderList";
-import LinkList from "./LinkList";
+import LinkList from "./CardList";
 
 const MainContainer = styled.main`
   width: 100%;
@@ -16,7 +15,7 @@ const MainContainer = styled.main`
 `;
 
 interface MainProps {
-  folderId: string;
+  folderId?: string;
 }
 
 function Main({ folderId }: MainProps) {
