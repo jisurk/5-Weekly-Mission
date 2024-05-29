@@ -72,11 +72,12 @@ const StyledCardDate = styled.div`
 interface LinkData {
   id: number;
   url: string;
-  imageSource: string;
   title: string;
   description: string;
-  createdAt: string;
+  image_source: string;
+  created_at: string;
 }
+
 interface CardProps {
   folderId: string;
   userId: number;
@@ -88,10 +89,18 @@ function Card({ folderId, userId }: CardProps) {
   useEffect(() => {
     const fetchLinkData = async () => {
       try {
-        const response = await axios.get(
-          `${BASE_URL}/users/${userId}/links?folderId=${folderId}`
-        );
-        setLinkData(response.data.data);
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken) {
+          const response = await axios.get(
+            `${BASE_URL}/users/${userId}/links?folderId=${folderId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          setLinkData(response.data.data);
+        }
       } catch (error) {
         console.error("링크 데이터 가져오기 에러:", error);
       }
@@ -106,18 +115,18 @@ function Card({ folderId, userId }: CardProps) {
         <StyledCardSection key={link.id}>
           <Link href={link.url} target="_blank">
             <StyledCardImg
-              src={link.imageSource ? link.imageSource : "/img/thumbnail.svg"}
-              alt={link.imageSource ? link.title : "thumbnail-img"}
+              src={link.image_source || "/img/thumbnail.svg"}
+              alt={link.image_source ? link.title : "thumbnail-img"}
             />
           </Link>
           <StyledCardTextSection>
             <div>
               <StyledCardCreatedAt>
-                {generateTimeText(link.createdAt)}
+                {generateTimeText(link.created_at)}
               </StyledCardCreatedAt>
             </div>
             <StyledCardTextBody>{link.description}</StyledCardTextBody>
-            <StyledCardDate>{formatDate(link.createdAt)}</StyledCardDate>
+            <StyledCardDate>{formatDate(link.created_at)}</StyledCardDate>
           </StyledCardTextSection>
         </StyledCardSection>
       ))}
