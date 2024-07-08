@@ -14,7 +14,7 @@ const StyledFolder = styled.div`
 export default function FolderPage() {
   const router = useRouter();
   const { folderId } = router.query;
-
+  console.log("hello");
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) {
@@ -25,7 +25,7 @@ export default function FolderPage() {
   return (
     <StyledFolder>
       <Header />
-      <Main folderId={ Array.isArray(folderId) ? folderId[0] : folderId} />
+      <Main folderId={Array.isArray(folderId) ? folderId[0] : folderId} />
       <Footer />
     </StyledFolder>
   );
