@@ -25,7 +25,7 @@ export default function FolderPage() {
   return (
     <StyledFolder>
       <Header />
-      <Main folderId={Array.isArray(folderId) ? folderId[0] : folderId} />
+      <Main folderId={ Array.isArray(folderId) ? folderId[0] : folderId} />
       <Footer />
     </StyledFolder>
   );

@@ -54,7 +54,7 @@ interface FolderData {
 interface FolderOwner {
   id: number;
   name: string;
-  profileImageSource: string;
+  image_source: string;
 }
 
 interface HeaderContentProps {
@@ -98,7 +98,7 @@ function HeaderContent({ folderId }: HeaderContentProps) {
     <StyledFolderInfoContent>
       {folderData && folderOwner && (
         <StyledFolderInfo>
-          <StyledFolderImg src={folderOwner.profileImageSource} alt="프로필" />
+          <StyledFolderImg src={folderOwner.image_source} alt="프로필" />
           <StyledFolderOwnerName>@{folderOwner.name}</StyledFolderOwnerName>
           <StyledFolderName>{folderData.name}</StyledFolderName>
         </StyledFolderInfo>
