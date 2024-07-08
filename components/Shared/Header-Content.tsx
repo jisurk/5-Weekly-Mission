@@ -99,7 +99,10 @@ function HeaderContent({ folderId }: HeaderContentProps) {
       {folderData && folderOwner && (
         <StyledFolderInfo>
           <StyledFolderImg src={folderOwner.image_source} alt="프로필" />
+<<<<<<< HEAD
           <StyledFolderOwnerName>@{folderOwner.name}</StyledFolderOwnerName>
+=======
+>>>>>>> 13f9547edc8bc3f80ae6dffbbb0ddde946ccec83
           <StyledFolderName>{folderData.name}</StyledFolderName>
         </StyledFolderInfo>
       )}
